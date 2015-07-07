@@ -29,9 +29,9 @@
 # ifndef OPENSSL_NO_DH
 #  include <openssl/dh.h>
 # endif
-# ifdef HAVE_WOLFSSL_SSL_H /* use SSL_CTX_use_certificate_file instead of SSL_CTX_use_certificate*/
+# ifdef HAVE_WOLFSSL_SSL_H
 	# include <openssl/bn.h>
-#endif
+# endif /*HAVE_WOLFSSL_SSL_H*/
 
 # if OPENSSL_VERSION_NUMBER >= 0x0090800fL
 #  ifndef OPENSSL_NO_ECDH
@@ -906,7 +906,7 @@ int network_init(server *srv) {
 					ERR_error_string(ERR_get_error(), NULL), s->ssl_pemfile);
 			return -1;
 		}
-#endif /*end wolfSSL*/
+# endif /*end wolfSSL*/
 
 
 		if (SSL_CTX_use_PrivateKey(s->ssl_ctx, s->ssl_pemfile_pkey) < 0) {
